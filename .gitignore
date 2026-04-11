@@ -1,0 +1,66 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build results
+bin/
+obj/
+[Bb]in/
+[Oo]bj/
+*.exe
+*.dll
+*.exe.config
+*.dll.config
+*.pdb
+*.cache
+*.tmp
+*.temp
+
+# NuGet
+packages/
+*.nupkg
+
+# Test results
+TestResults/
+*.trx
+
+# Logs
+*.log
+
+# OS generated
+.DS_Store
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Backup files
+*~
+*.bak
+
+# JetBrains Rider
+.idea/
+
+# VS Code
+.vscode/
+
+# OpenCvSharp temp files
+*.traineddata
+
+# Tesseract data (если не хотите хранить в репозитории)
+tessdata/*.traineddata
+
+# User-specific
+*.rsuser
+*.suo
+*.user
+*.userprefs
+*.usertasks
+*.sln.docstates
+
+# Performance
+*.diagsession
+*.etl
+*.perfView.json
