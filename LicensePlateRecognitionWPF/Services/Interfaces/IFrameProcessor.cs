@@ -1,6 +1,6 @@
-﻿using LicensePlateRecognition.Models;
+﻿using LicensePlateRecognitionWPF.Models;
 
-namespace LicensePlateRecognition.Services.Interfaces {
+namespace LicensePlateRecognitionWPF.Services.Interfaces {
     public interface IFrameProcessor {
         Task<DetectionResult> ProcessFrameAsync(VideoFrame frame, CancellationToken cancellationToken = default);
         void Configure(ProcessorOptions options);

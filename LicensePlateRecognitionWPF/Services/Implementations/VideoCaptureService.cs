@@ -1,9 +1,9 @@
-﻿using LicensePlateRecognition.Models;
-using LicensePlateRecognition.Services.Interfaces;
+﻿using LicensePlateRecognitionWPF.Models;
+using LicensePlateRecognitionWPF.Services.Interfaces;
 using OpenCvSharp;
 using System.Diagnostics;
 
-namespace LicensePlateRecognition.Services.Implementations {
+namespace LicensePlateRecognitionWPF.Services.Implementations {
     public class VideoCaptureService : IVideoCaptureService {
         public event Action<string> OnStatusChanged;
         public event Action<Exception> OnError;

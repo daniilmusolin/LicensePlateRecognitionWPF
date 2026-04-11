@@ -1,4 +1,4 @@
-﻿namespace LicensePlateRecognition.Models {
+﻿namespace LicensePlateRecognitionWPF.Models {
     public class VideoCaptureInfo {
         public int Width { get; set; }
         public int Height { get; set; }

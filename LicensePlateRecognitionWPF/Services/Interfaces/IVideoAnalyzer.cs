@@ -1,7 +1,7 @@
-﻿using LicensePlateRecognition.Forms;
-using LicensePlateRecognition.Models;
+﻿using LicensePlateRecognitionWPF.Models;
+using System.Drawing;
 
-namespace LicensePlateRecognition.Services.Interfaces {
+namespace LicensePlateRecognitionWPF.Services.Interfaces {
     public interface IVideoAnalyzer {
         event Action<DetectedPlate> OnPlateDetected;
         event Action<string> OnStatusChanged;

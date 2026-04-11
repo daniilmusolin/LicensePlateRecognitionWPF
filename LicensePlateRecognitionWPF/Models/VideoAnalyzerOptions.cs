@@ -1,4 +1,4 @@
-﻿namespace LicensePlateRecognition.Models {
+﻿namespace LicensePlateRecognitionWPF.Models {
     public class VideoAnalyzerOptions {
         public int DetectionIntervalMs { get; set; } = 500;
         public int CooldownPeriodMs { get; set; } = 5000;

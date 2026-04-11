@@ -1,10 +1,13 @@
 ﻿using System.Diagnostics;
-using LicensePlateRecognition.Models;
-using LicensePlateRecognition.Services.Interfaces;
-using LicensePlateRecognition.Helpers;
+using LicensePlateRecognitionWPF.Models;
+using LicensePlateRecognitionWPF.Services.Interfaces;
+using LicensePlateRecognitionWPF.Helpers;
 using OpenCvSharp;
+using System.Drawing;
+using LicensePlateRecognitionWPF.Services.Interfaces;
+using System.IO;
 
-namespace LicensePlateRecognition.Services.Implementations {
+namespace LicensePlateRecognitionWPF.Services.Implementations {
     public class VideoAnalyzer : IVideoAnalyzer {
         public event Action<DetectedPlate> OnPlateDetected;
         public event Action<string> OnStatusChanged;

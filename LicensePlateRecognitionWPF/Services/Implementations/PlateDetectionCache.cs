@@ -1,8 +1,8 @@
-﻿using LicensePlateRecognition.Services.Interfaces;
+﻿using LicensePlateRecognitionWPF.Services.Interfaces;
 using System.Collections.Concurrent;
 using Timer = System.Threading.Timer;
 
-namespace LicensePlateRecognition.Services.Implementations {
+namespace LicensePlateRecognitionWPF.Services.Implementations {
     public class PlateDetectionCache : IPlateDetectionCache {
         private readonly ConcurrentDictionary<string, DateTime> _detectedPlates;
         private readonly TimeSpan _cooldownPeriod;

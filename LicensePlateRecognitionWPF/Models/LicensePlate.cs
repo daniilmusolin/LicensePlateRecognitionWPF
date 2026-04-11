@@ -1,4 +1,6 @@
-﻿namespace LicensePlateRecognition.Models {
+﻿using System.Drawing;
+
+namespace LicensePlateRecognitionWPF.Models {
     public class LicensePlate {
         public string Number { get; set; }
         public string CountryCode { get; set; }

@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics;
-using LicensePlateRecognition.Models;
-using LicensePlateRecognition.Services.Interfaces;
+using LicensePlateRecognitionWPF.Models;
+using LicensePlateRecognitionWPF.Services.Interfaces;
 using OpenCvSharp;
 
-namespace LicensePlateRecognition.Services.Implementations;
+namespace LicensePlateRecognitionWPF.Services.Implementations;
 
 public class FrameProcessor : IFrameProcessor {
     private readonly IImagePreprocessor _preprocessor;

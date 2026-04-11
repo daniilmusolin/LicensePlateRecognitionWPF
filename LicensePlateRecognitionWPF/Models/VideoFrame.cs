@@ -1,6 +1,6 @@
 ﻿using OpenCvSharp;
 
-namespace LicensePlateRecognition.Models {
+namespace LicensePlateRecognitionWPF.Models {
     public class VideoFrame : IDisposable {
         public Mat Image { get; set; }
         public int FrameNumber { get; set; }

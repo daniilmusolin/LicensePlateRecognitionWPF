@@ -1,6 +1,7 @@
-﻿using LicensePlateRecognition.Models;
+﻿using LicensePlateRecognitionWPF.Models;
+using System.Drawing;
 
-namespace LicensePlateRecognition.Utils {
+namespace LicensePlateRecognitionWPF.Utils {
     public static class PlateMappingExtensions {
         public static DetectedPlate ToDetectedPlate(this LicensePlate licensePlate) {
             if (licensePlate == null)

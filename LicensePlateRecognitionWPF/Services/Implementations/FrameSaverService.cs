@@ -1,8 +1,9 @@
-﻿using LicensePlateRecognition.Models;
-using LicensePlateRecognition.Services.Interfaces;
+﻿using LicensePlateRecognitionWPF.Models;
+using LicensePlateRecognitionWPF.Services.Interfaces;
 using OpenCvSharp;
+using System.IO;
 
-namespace LicensePlateRecognition.Services.Implementations {
+namespace LicensePlateRecognitionWPF.Services.Implementations {
     public class FrameSaverService : IFrameSaverService {
         public async Task SaveFrameAsync(VideoFrame frame, DetectedPlate plate, string path) {
             if (frame?.Image == null || plate == null)

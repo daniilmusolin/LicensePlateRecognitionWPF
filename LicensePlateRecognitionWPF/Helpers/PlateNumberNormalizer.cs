@@ -1,6 +1,6 @@
-﻿using LicensePlateRecognition.Services.Interfaces;
+﻿using LicensePlateRecognitionWPF.Services.Interfaces;
 
-namespace LicensePlateRecognition.Helpers {
+namespace LicensePlateRecognitionWPF.Helpers {
     public class PlateNumberNormalizer : IPlateNumberNormalizer {
         public string Normalize(string plateNumber) {
             if (string.IsNullOrWhiteSpace(plateNumber))

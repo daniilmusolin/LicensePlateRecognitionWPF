@@ -1,7 +1,7 @@
-﻿using LicensePlateRecognition.Models;
+﻿using LicensePlateRecognitionWPF.Models;
 using OpenCvSharp;
 
-namespace LicensePlateRecognition.Services.Interfaces {
+namespace LicensePlateRecognitionWPF.Services.Interfaces {
     public interface ILicensePlateRecognizer {
         RecognitionResult Recognize(byte[] imageData);
         RecognitionResult RecognizeFromFile(string imagePath);

@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
-using LicensePlateRecognition.Models;
+using LicensePlateRecognitionWPF.Models;
 
-namespace LicensePlateRecognition.Helpers {
+namespace LicensePlateRecognitionWPF.Helpers {
     public class LicensePlateValidator {
         // Российский номер: Б 123 ББ 123
         private readonly Regex _russianPlatePattern = new Regex(

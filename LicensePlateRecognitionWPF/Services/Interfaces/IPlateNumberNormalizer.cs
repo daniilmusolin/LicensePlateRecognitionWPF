@@ -1,4 +1,4 @@
-﻿namespace LicensePlateRecognition.Services.Interfaces {
+﻿namespace LicensePlateRecognitionWPF.Services.Interfaces {
     public interface IPlateNumberNormalizer {
         string Normalize(string plateNumber);
         string ExtractRegionCode(string plateNumber);

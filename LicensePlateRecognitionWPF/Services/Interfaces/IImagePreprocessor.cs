@@ -1,6 +1,7 @@
 ﻿using OpenCvSharp;
+using System.Drawing;
 
-namespace LicensePlateRecognition.Services.Interfaces {
+namespace LicensePlateRecognitionWPF.Services.Interfaces {
     public interface IImagePreprocessor {
         Mat PreprocessForRecognition(string imagePath);
         Mat PreprocessForRecognition(Mat sourceImage);

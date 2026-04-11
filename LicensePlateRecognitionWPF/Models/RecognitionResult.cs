@@ -1,4 +1,4 @@
-﻿namespace LicensePlateRecognition.Models {
+﻿namespace LicensePlateRecognitionWPF.Models {
     /// <summary>
     /// Результат распознавания
     /// </summary>

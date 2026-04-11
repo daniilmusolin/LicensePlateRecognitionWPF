@@ -1,9 +1,10 @@
-﻿using LicensePlateRecognition.Models;
-using LicensePlateRecognition.Services.Interfaces;
+﻿using LicensePlateRecognitionWPF.Models;
+using LicensePlateRecognitionWPF.Services.Interfaces;
 using OpenCvSharp;
 using System.Diagnostics;
+using System.Drawing;
 
-namespace LicensePlateRecognition.Services.Implementations {
+namespace LicensePlateRecognitionWPF.Services.Implementations {
     public class PlateLocationFinder : IPlateLocationFinder {
         private LocationFinderOptions _options;
 

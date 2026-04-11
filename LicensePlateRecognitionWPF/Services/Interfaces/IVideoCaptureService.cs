@@ -1,6 +1,6 @@
-﻿using LicensePlateRecognition.Models;
+﻿using LicensePlateRecognitionWPF.Models;
 
-namespace LicensePlateRecognition.Services.Interfaces {
+namespace LicensePlateRecognitionWPF.Services.Interfaces {
     public interface IVideoCaptureService : IDisposable {
         event Action<string> OnStatusChanged;
         event Action<Exception> OnError;

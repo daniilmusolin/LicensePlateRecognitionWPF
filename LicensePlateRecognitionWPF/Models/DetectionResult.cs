@@ -1,4 +1,4 @@
-﻿namespace LicensePlateRecognition.Models {
+﻿namespace LicensePlateRecognitionWPF.Models {
     public class DetectionResult {
         public bool Success { get; set; }
         public DetectedPlate LicensePlate { get; set; }

@@ -1,10 +1,11 @@
 ﻿using Tesseract;
 using OpenCvSharp;
-using LicensePlateRecognition.Models;
-using LicensePlateRecognition.Services.Interfaces;
-using LicensePlateRecognition.Helpers;
+using LicensePlateRecognitionWPF.Models;
+using LicensePlateRecognitionWPF.Services.Interfaces;
+using LicensePlateRecognitionWPF.Helpers;
+using System.IO;
 
-namespace LicensePlateRecognition.Services.Implementations {
+namespace LicensePlateRecognitionWPF.Services.Implementations {
     public class TesseractRecognizer : ILicensePlateRecognizer {
         private readonly string _tessDataPath;
         private readonly LicensePlateValidator _validator;

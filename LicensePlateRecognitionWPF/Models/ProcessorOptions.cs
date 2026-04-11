@@ -1,4 +1,4 @@
-﻿namespace LicensePlateRecognition.Models {
+﻿namespace LicensePlateRecognitionWPF.Models {
     public class ProcessorOptions {
         public int MinPlateWidth { get; set; } = 50;
         public int MinPlateHeight { get; set; } = 20;

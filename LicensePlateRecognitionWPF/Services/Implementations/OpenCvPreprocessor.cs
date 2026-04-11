@@ -1,10 +1,12 @@
 ﻿using OpenCvSharp;
 using OpenCvSharp.Extensions;
-using LicensePlateRecognition.Services.Interfaces;
+using LicensePlateRecognitionWPF.Services.Interfaces;
 using Point = OpenCvSharp.Point;
 using Size = OpenCvSharp.Size;
+using System.IO;
+using System.Drawing;
 
-namespace LicensePlateRecognition.Services.Implementations {
+namespace LicensePlateRecognitionWPF.Services.Implementations {
     /// <summary>
     /// Предобработчик изображений на основе OpenCV 4.13.0
     /// </summary>

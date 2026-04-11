@@ -1,4 +1,4 @@
-﻿namespace LicensePlateRecognition.Services.Interfaces {
+﻿namespace LicensePlateRecognitionWPF.Services.Interfaces {
     public interface IPlateDetectionCache {
         bool IsPlateOnCooldown(string plateNumber);
         void RegisterDetection(string plateNumber);

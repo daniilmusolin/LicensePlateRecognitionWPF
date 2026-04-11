@@ -1,4 +1,4 @@
-﻿namespace LicensePlateRecognition.Models {
+﻿namespace LicensePlateRecognitionWPF.Models {
     public class LocationFinderOptions {
         public int CannyThreshold1 { get; set; } = 100;
         public int CannyThreshold2 { get; set; } = 200;
