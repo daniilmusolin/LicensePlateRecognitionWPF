@@ -6,6 +6,7 @@ using OpenCvSharp;
 using System.Drawing;
 using LicensePlateRecognitionWPF.Services.Interfaces;
 using System.IO;
+using LicensePlateRecognition.Services.Implementations;
 
 namespace LicensePlateRecognitionWPF.Services.Implementations {
     public class VideoAnalyzer : IVideoAnalyzer {
@@ -95,6 +96,7 @@ namespace LicensePlateRecognitionWPF.Services.Implementations {
         }
 
         public async Task StopAsync() {
+            _stopRequested = true;  
             _isRunning = false;
 
             if (_cts != null) {
@@ -105,7 +107,7 @@ namespace LicensePlateRecognitionWPF.Services.Implementations {
 
             if (_analysisTask != null) {
                 try {
-                    await _analysisTask.ConfigureAwait(false);
+                    await Task.WhenAny(_analysisTask, Task.Delay(1000));
                 } catch (OperationCanceledException) {
                     // Ожидаемая отмена
                 } catch (Exception ex) {
@@ -127,7 +129,11 @@ namespace LicensePlateRecognitionWPF.Services.Implementations {
             }
         }
 
+        private bool _stopRequested = false;
+
         private async Task AnalyzeVideoStreamAsync(string rtspUrl, CancellationToken cancellationToken) {
+            _stopRequested = false;
+
             if (!await _captureService.ConnectAsync(rtspUrl, cancellationToken)) {
                 OnStatusChanged?.Invoke("Не удалось подключиться к видеопотоку");
                 _isRunning = false;
@@ -136,24 +142,25 @@ namespace LicensePlateRecognitionWPF.Services.Implementations {
 
             var lastDetectionTime = DateTime.MinValue;
 
-            while (!cancellationToken.IsCancellationRequested && _isRunning) {
+            while (!cancellationToken.IsCancellationRequested && _isRunning && !_stopRequested) {
                 try {
-                    var frame = await _captureService.ReadFrameAsync(cancellationToken);
+                    var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+                    cts.CancelAfter(100); // Таймаут 100 мс на чтение кадра
+
+                    var frame = await _captureService.ReadFrameAsync(cts.Token);
 
                     if (frame == null) {
-                        await Task.Delay(Options.ReconnectDelayMs, cancellationToken);
+                        await Task.Delay(50, cancellationToken);
                         continue;
                     }
 
                     using (frame) {
                         _frameCounter++;
 
-                        // Отображение кадров с пропуском для производительности
                         if (_frameCounter % Options.DisplayFrameSkip == 0) {
                             await DisplayFrameAsync(frame);
                         }
 
-                        // Анализ кадров с заданным интервалом
                         var now = DateTime.Now;
                         if ((now - lastDetectionTime).TotalMilliseconds >= Options.DetectionIntervalMs) {
                             await AnalyzeFrameAsync(frame, cancellationToken);
@@ -161,23 +168,20 @@ namespace LicensePlateRecognitionWPF.Services.Implementations {
                             _processedFrames++;
 
                             if (_processedFrames % 100 == 0) {
-                                OnStatusChanged?.Invoke($"Статус: обработано {_processedFrames} кадров, " +
-                                    $"найдено {_detectionCache.GetActiveDetectionsCount()} номеров");
+                                OnStatusChanged?.Invoke($"Статус: обработано {_processedFrames} кадров");
                             }
                         }
                     }
-
-                    await Task.Delay(Options.FrameProcessIntervalMs, cancellationToken);
                 } catch (OperationCanceledException) {
                     break;
                 } catch (Exception ex) {
                     OnError?.Invoke(ex);
-                    OnStatusChanged?.Invoke($"Ошибка: {ex.Message}");
-                    await Task.Delay(1000, cancellationToken);
+                    await Task.Delay(100, cancellationToken);
                 }
             }
 
             _isRunning = false;
+            _stopRequested = false;
         }
 
         private async Task DisplayFrameAsync(VideoFrame frame) {

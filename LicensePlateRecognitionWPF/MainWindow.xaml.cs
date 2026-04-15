@@ -115,23 +115,54 @@ public partial class MainWindow : Window {
 
     private async void BtnStop_Click(object sender, RoutedEventArgs e) {
         try {
-            await _videoAnalyzer.StopAsync();
+            // Блокируем кнопки сразу для обратной связи
+            BtnStop.IsEnabled = false;
+            BtnStop.Content = "⏹ ОСТАНОВКА...";
+
+            LblCameraStatus.Text = "Статус: остановка...";
+            VideoStatus.Text = "Остановка...";
+
+            // Останавливаем с таймаутом
+            var stopTask = _videoAnalyzer.StopAsync();
+            var completedTask = await Task.WhenAny(stopTask, Task.Delay(3000));
+
+            if (completedTask != stopTask) {
+                // Принудительная остановка
+                LblStatus.Text = "⚠️ Принудительная остановка";
+            }
+
             ResetCameraUI();
+
+            LblStatus.Text = "✅ Поток остановлен";
+            LblStatus.Foreground = (Brush)FindResource("SuccessColor");
         } catch (Exception ex) {
             MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            ResetCameraUI();
+        } finally {
+            BtnStop.Content = "⏹ СТОП";
         }
     }
 
     private void ResetCameraUI() {
-        _isCameraMode = false;
-        BtnStart.IsEnabled = true;
-        BtnStop.IsEnabled = false;
-        BtnLoadImage.IsEnabled = true;
-        LblCameraStatus.Text = "Статус: остановлен";
-        LblCameraStatus.Foreground = (Brush)FindResource("WarningColor");
-        VideoStatus.Text = "Поток остановлен";
-        LblResolution.Text = "Разрешение: -";
-        LblFps.Text = "FPS: -";
+        Dispatcher.Invoke(() =>
+        {
+            _isCameraMode = false;
+            BtnStart.IsEnabled = true;
+            BtnStop.IsEnabled = false;
+            BtnLoadImage.IsEnabled = true;
+            LblCameraStatus.Text = "Статус: не подключен";
+            LblCameraStatus.Foreground = (Brush)FindResource("WarningColor");
+            VideoStatus.Text = "Готов";
+            LblResolution.Text = "Разрешение: -";
+            LblFps.Text = "FPS: -";
+
+            // Очищаем изображение
+            var oldImage = VideoImage.Source;
+            VideoImage.Source = null;
+            oldImage?.Freeze();
+
+            PlateOverlay.Visibility = Visibility.Collapsed;
+        });
     }
 
     private void OnPlateDetected(DetectedPlate plate) {
