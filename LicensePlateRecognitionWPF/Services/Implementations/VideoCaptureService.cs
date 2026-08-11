@@ -46,14 +46,14 @@ public class VideoCaptureService : IVideoCaptureService {
             OnStatusChanged?.Invoke($"Пробуем: {url}");
 
             if (await TryConnect(url, cancellationToken)) {
-                OnStatusChanged?.Invoke($"✅ Подключено! {CaptureInfo.Width}x{CaptureInfo.Height}, {CaptureInfo.Fps:F1} FPS");
+                OnStatusChanged?.Invoke($"Подключено! {CaptureInfo.Width}x{CaptureInfo.Height}, {CaptureInfo.Fps:F1} FPS");
                 return true;
             }
 
             await Task.Delay(500, cancellationToken);
         }
 
-        OnStatusChanged?.Invoke("❌ Не удалось подключиться");
+        OnStatusChanged?.Invoke("Не удалось подключиться");
         return false;
     }
 
@@ -135,7 +135,7 @@ public class VideoCaptureService : IVideoCaptureService {
                 _emptyFrameCount++;
 
                 if (_emptyFrameCount >= 10) {
-                    OnStatusChanged?.Invoke("⚠️ Слишком много пустых кадров");
+                    OnStatusChanged?.Invoke("Слишком много пустых кадров");
                     IsConnected = false;
                 }
                 return null;
@@ -160,13 +160,13 @@ public class VideoCaptureService : IVideoCaptureService {
 
     public async Task ReconnectAsync() {
         if (_reconnectAttempts >= _options.ReconnectAttempts) {
-            OnStatusChanged?.Invoke("❌ Превышено количество попыток переподключения");
+            OnStatusChanged?.Invoke("Превышено количество попыток переподключения");
             IsConnected = false;
             return;
         }
 
         _reconnectAttempts++;
-        OnStatusChanged?.Invoke($"🔄 Переподключение... Попытка {_reconnectAttempts}/{_options.ReconnectAttempts}");
+        OnStatusChanged?.Invoke($"Переподключение... Попытка {_reconnectAttempts}/{_options.ReconnectAttempts}");
 
         await Task.Delay(_options.ReconnectDelayMs);
 
