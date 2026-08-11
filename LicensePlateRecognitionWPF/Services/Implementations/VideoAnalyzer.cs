@@ -220,7 +220,7 @@ namespace LicensePlateRecognitionWPF.Services.Implementations {
                 await _frameSaver.SaveFrameAsync(frame, plate, Options.FramesSavePath);
             }
 
-            OnStatusChanged?.Invoke($"🚗 Найден номер: {plate.Number} ({(plate.Confidence * 100):F0}%)");
+            OnStatusChanged?.Invoke($"Найден номер: {plate.Number} ({(plate.Confidence * 100):F0}%)");
             OnPlateDetected?.Invoke(plate);
         }
 
@@ -238,7 +238,7 @@ namespace LicensePlateRecognitionWPF.Services.Implementations {
         }
 
         private async Task TestCameraConnection(string rtspUrl) {
-            OnStatusChanged?.Invoke("🔧 Тестирование подключения к камере...");
+            OnStatusChanged?.Invoke("Тестирование подключения к камере...");
 
             var testCapture = new VideoCapture();
 
@@ -257,7 +257,7 @@ namespace LicensePlateRecognitionWPF.Services.Implementations {
                     for (int i = 0; i < 10; i++) {
                         testCapture.Read(testFrame);
                         if (!testFrame.Empty()) {
-                            OnStatusChanged?.Invoke($"✅ УСПЕХ! Получен кадр {testFrame.Width}x{testFrame.Height}");
+                            OnStatusChanged?.Invoke($"УСПЕХ! Получен кадр {testFrame.Width}x{testFrame.Height}");
                             testFrame.Dispose();
                             testCapture.Release();
                             return;
@@ -269,7 +269,7 @@ namespace LicensePlateRecognitionWPF.Services.Implementations {
                 testCapture.Release();
             }
 
-            OnStatusChanged?.Invoke("❌ Не удалось получить кадры ни с одного URL");
+            OnStatusChanged?.Invoke("Не удалось получить кадры ни с одного URL");
         }
 
         public void Dispose() {
