@@ -117,7 +117,7 @@ public partial class MainWindow : Window {
         try {
             // Блокируем кнопки сразу для обратной связи
             BtnStop.IsEnabled = false;
-            BtnStop.Content = "⏹ ОСТАНОВКА...";
+            BtnStop.Content = "ОСТАНОВКА...";
 
             LblCameraStatus.Text = "Статус: остановка...";
             VideoStatus.Text = "Остановка...";
@@ -128,18 +128,18 @@ public partial class MainWindow : Window {
 
             if (completedTask != stopTask) {
                 // Принудительная остановка
-                LblStatus.Text = "⚠️ Принудительная остановка";
+                LblStatus.Text = "Принудительная остановка";
             }
 
             ResetCameraUI();
 
-            LblStatus.Text = "✅ Поток остановлен";
+            LblStatus.Text = "Поток остановлен";
             LblStatus.Foreground = (Brush)FindResource("SuccessColor");
         } catch (Exception ex) {
             MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             ResetCameraUI();
         } finally {
-            BtnStop.Content = "⏹ СТОП";
+            BtnStop.Content = "СТОП";
         }
     }
 
@@ -179,8 +179,8 @@ public partial class MainWindow : Window {
             });
 
             _recognitionCount++;
-            LblStats.Text = $"📊 Распознано: {_recognitionCount}";
-            LblStatus.Text = $"✅ Распознан номер: {plate.Number}";
+            LblStats.Text = $"Распознано: {_recognitionCount}";
+            LblStatus.Text = $"Распознан номер: {plate.Number}";
             LblStatus.Foreground = (Brush)FindResource("SuccessColor");
 
             BtnCopy.IsEnabled = true;
@@ -226,7 +226,7 @@ public partial class MainWindow : Window {
             LblCameraStatus.Text = $"Статус: {status}";
             VideoStatus.Text = status;
 
-            if (status.Contains("подключен") || status.Contains("✅") || status.Contains("Подключено")) {
+            if (status.Contains("подключен") || status.Contains("Подключено")) {
                 LblCameraStatus.Foreground = (Brush)FindResource("SuccessColor");
                 VideoStatus.Foreground = (Brush)FindResource("SuccessColor");
 
@@ -242,7 +242,7 @@ public partial class MainWindow : Window {
                         }
                     } catch { }
                 }
-            } else if (status.Contains("ошибка") || status.Contains("❌")) {
+            } else if (status.Contains("ошибка")) {
                 LblCameraStatus.Foreground = (Brush)FindResource("ErrorColor");
                 VideoStatus.Foreground = (Brush)FindResource("ErrorColor");
             } else {
@@ -292,22 +292,21 @@ public partial class MainWindow : Window {
                     _currentMatImage = _imageLoader.LoadImageAsMat(_currentImagePath);
                 });
 
-                // ✅ ПРЯМО ПОЛУЧАЕМ BITMAP
                 var bitmap = await Task.Run(() => _imageLoader.LoadImageAsBitmap(_currentImagePath));
                 VideoImage.Source = ConvertBitmapToImageSource(bitmap);
 
                 BtnRecognize.IsEnabled = true;
                 _currentPlate = null;
-                TxtPlateNumber.Text = "";
-                TxtRegion.Text = "";
+                TxtPlateNumber.Text = string.Empty;
+                TxtRegion.Text = string.Empty;
                 ConfidenceBar.Value = 0;
                 PlateOverlay.Visibility = Visibility.Collapsed;
 
-                LblStatus.Text = $"📁 Загружено: {Path.GetFileName(_currentImagePath)}";
+                LblStatus.Text = $"Загружено: {Path.GetFileName(_currentImagePath)}";
                 LblStatus.Foreground = (Brush)FindResource("SuccessColor");
             } catch (Exception ex) {
                 MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                LblStatus.Text = "❌ Ошибка загрузки";
+                LblStatus.Text = "Ошибка загрузки";
                 LblStatus.Foreground = (Brush)FindResource("ErrorColor");
             } finally {
                 ProgressBar.Visibility = Visibility.Collapsed;
@@ -325,7 +324,7 @@ public partial class MainWindow : Window {
         try {
             BtnRecognize.IsEnabled = false;
             ProgressBar.Visibility = Visibility.Visible;
-            LblStatus.Text = "⏳ Распознавание...";
+            LblStatus.Text = "Распознавание...";
             LblStatus.Foreground = (Brush)FindResource("WarningColor");
 
             var result = await Task.Run(() => {
@@ -358,8 +357,8 @@ public partial class MainWindow : Window {
                 });
 
                 _recognitionCount++;
-                LblStats.Text = $"📊 Распознано: {_recognitionCount}";
-                LblStatus.Text = $"✅ Распознан номер: {cleanNumber}";
+                LblStats.Text = $"Распознано: {_recognitionCount}";
+                LblStatus.Text = $"Распознан номер: {cleanNumber}";
                 LblStatus.Foreground = (Brush)FindResource("SuccessColor");
 
                 BtnCopy.IsEnabled = true;
@@ -368,12 +367,12 @@ public partial class MainWindow : Window {
                 TxtPlateNumber.Text = "НЕ НАЙДЕН";
                 TxtRegion.Text = "---";
                 ConfidenceBar.Value = 0;
-                LblStatus.Text = "❌ Номер не распознан";
+                LblStatus.Text = "Номер не распознан";
                 LblStatus.Foreground = (Brush)FindResource("ErrorColor");
             }
         } catch (Exception ex) {
             MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            LblStatus.Text = "❌ Ошибка распознавания";
+            LblStatus.Text = "Ошибка распознавания";
             LblStatus.Foreground = (Brush)FindResource("ErrorColor");
         } finally {
             BtnRecognize.IsEnabled = true;
@@ -402,7 +401,7 @@ public partial class MainWindow : Window {
     private void BtnCopy_Click(object sender, RoutedEventArgs e) {
         if (!string.IsNullOrEmpty(TxtPlateNumber.Text) && TxtPlateNumber.Text != "НЕ НАЙДЕН") {
             Clipboard.SetText($"{TxtPlateNumber.Text} {TxtRegion.Text}");
-            LblStatus.Text = "📋 Номер скопирован";
+            LblStatus.Text = "Номер скопирован";
             LblStatus.Foreground = (Brush)FindResource("SuccessColor");
         }
     }
@@ -423,7 +422,7 @@ public partial class MainWindow : Window {
                 using var stream = File.OpenWrite(dialog.FileName);
                 encoder.Save(stream);
 
-                LblStatus.Text = "💾 Изображение сохранено";
+                LblStatus.Text = "Изображение сохранено";
                 LblStatus.Foreground = (Brush)FindResource("SuccessColor");
             } catch (Exception ex) {
                 MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -453,7 +452,7 @@ public partial class MainWindow : Window {
                 }
 
                 File.WriteAllText(dialog.FileName, sb.ToString(), Encoding.UTF8);
-                LblStatus.Text = "📎 Экспорт завершен";
+                LblStatus.Text = "Экспорт завершен";
                 LblStatus.Foreground = (Brush)FindResource("SuccessColor");
             } catch (Exception ex) {
                 MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -466,7 +465,7 @@ public partial class MainWindow : Window {
             await Task.Delay(1000);
             if (_isCameraMode && _videoAnalyzer.IsRunning) {
                 Dispatcher.Invoke(() => {
-                    LblStats.Text = $"📊 Распознано: {_recognitionCount} | 🎥 RTSP режим";
+                    LblStats.Text = $"Распознано: {_recognitionCount} | RTSP режим";
                 });
             }
         }
@@ -474,9 +473,9 @@ public partial class MainWindow : Window {
 
     private void ShowTessDataWarning(string tessDataPath) {
         var result = MessageBox.Show(
-            "⚠️ Для работы необходимы файлы Tesseract:\n" +
+            "Для работы необходимы файлы Tesseract:\n" +
             "rus.traineddata и eng.traineddata\n\n" +
-            $"📁 Поместите их в папку:\n{tessDataPath}\n\n" +
+            $"Поместите их в папку:\n{tessDataPath}\n\n" +
             "Продолжить?",
             "Внимание",
             MessageBoxButton.YesNo,
